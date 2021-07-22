@@ -14,6 +14,7 @@ import {
   forwardRef,
   ForwardRefExoticComponent,
   Key,
+  MouseEvent,
   ReactNode,
   RefAttributes,
   useLayoutEffect,
@@ -55,7 +56,7 @@ const useStyles = makeStyles(
 export interface AdaptiveToolbarItem {
   key: Key;
   label: ReactNode;
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
   ButtonProps?: Omit<ButtonProps, 'type' | 'onClick'>;
 }
 
@@ -161,8 +162,8 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> =
                 {menuItems.map((item) => (
                   <MenuItem
                     key={item.key}
-                    onClick={() => {
-                      item.onClick?.();
+                    onClick={(event) => {
+                      item.onClick?.(event);
                       setMenuButtonRef(undefined);
                     }}
                   >
